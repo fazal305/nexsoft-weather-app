@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexsoft Weather App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-wrapper">
+    <!-- App Card -->
+    <section class="weather-app">
+      <h1>Weather App</h1>
+      <p class="app-subtitle">Search current weather by city name</p>
+
+      <!-- Search Section -->
+      <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Enter city name" />
+        <button id="searchButton">Search</button>
+      </div>
+
+      <!-- Message Section -->
+      <p id="messageText" class="message-text"></p>
+
+      <!-- Loading Section -->
+      <div id="loadingBox" class="loading-box hidden">
+        <div class="spinner"></div>
+        <p>Fetching weather...</p>
+      </div>
+
+      <!-- Weather Result Section -->
+      <section id="weatherCard" class="weather-card hidden">
+        <h2 id="locationText"></h2>
+
+        <img id="weatherIcon" class="weather-icon" src="" alt="Weather icon" />
+
+        <p id="temperatureText" class="temperature-text"></p>
+        <p id="conditionText" class="condition-text"></p>
+
+        <div class="weather-details">
+          <div>
+            <span>Feels Like</span>
+            <strong id="feelsLikeText"></strong>
+          </div>
+
+          <div>
+            <span>Humidity</span>
+            <strong id="humidityText"></strong>
+          </div>
+
+          <div>
+            <span>Wind Speed</span>
+            <strong id="windText"></strong>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
