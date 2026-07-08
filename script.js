@@ -1,47 +1,50 @@
-/* API Setup */
 const apiKey = "d6e134f57ee968a474bdca589a45ccbd";
 
-/* Element Selection */
-const cityInput = document.getElementById("cityInput");
-const searchButton = document.getElementById("searchButton");
-const messageText = document.getElementById("messageText");
-const loadingBox = document.getElementById("loadingBox");
-const weatherCard = document.getElementById("weatherCard");
+const cityInput = document.querySelector("#cityInput");
+const searchButton = document.querySelector("#searchButton");
+const messageText = document.querySelector("#messageText");
+const loadingBox = document.querySelector("#loadingBox");
+const weatherCard = document.querySelector("#weatherCard");
 
-const locationText = document.getElementById("locationText");
-const weatherIcon = document.getElementById("weatherIcon");
-const temperatureText = document.getElementById("temperatureText");
-const conditionText = document.getElementById("conditionText");
-const feelsLikeText = document.getElementById("feelsLikeText");
-const humidityText = document.getElementById("humidityText");
-const windText = document.getElementById("windText");
+const locationText = document.querySelector("#locationText");
+const weatherIcon = document.querySelector("#weatherIcon");
+const temperatureText = document.querySelector("#temperatureText");
+const conditionText = document.querySelector("#conditionText");
+const feelsLikeText = document.querySelector("#feelsLikeText");
+const humidityText = document.querySelector("#humidityText");
+const windText = document.querySelector("#windText");
 
-/* Search Button Click */
-searchButton.addEventListener("click", function () {
-  handleWeatherSearch();
-});
+const lastCityKey = "nexsoft-weather-last-city";
 
-/* Enter Key Search */
+searchButton.addEventListener("click", handleWeatherSearch);
+
 cityInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     handleWeatherSearch();
   }
 });
 
-/* Handles city input validation before fetching weather */
+document.addEventListener("DOMContentLoaded", function () {
+  const savedCity = localStorage.getItem(lastCityKey);
+
+  if (savedCity) {
+    cityInput.value = savedCity;
+  }
+});
+
 function handleWeatherSearch() {
   const cityName = cityInput.value.trim();
 
   if (cityName === "") {
-    showMessage("Please enter a city name");
+    showMessage("Please enter a city name.");
     weatherCard.classList.add("hidden");
+    cityInput.focus();
     return;
   }
 
   fetchWeatherData(cityName);
 }
 
-/* Fetches weather data from OpenWeatherMap API */
 async function fetchWeatherData(cityName) {
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(cityName)}&appid=${apiKey}&units=metric`;
 
@@ -57,22 +60,22 @@ async function fetchWeatherData(cityName) {
     }
 
     if (response.status === 401) {
-      showErrorState("API error. Check your API key.");
+      showErrorState("API error. Please check the OpenWeatherMap API key.");
       return;
     }
 
     if (!response.ok) {
-      showErrorState("Something went wrong. Check your connection.");
+      showErrorState("Weather data is not available right now. Please try again.");
       return;
     }
 
     displayWeatherData(weatherData);
-  } catch (error) {
-    showErrorState("Something went wrong. Check your connection.");
+    localStorage.setItem(lastCityKey, cityName);
+  } catch {
+    showErrorState("Network error. Please check your internet connection.");
   }
 }
 
-/* Displays successful weather data on the page */
 function displayWeatherData(weatherData) {
   const cityName = weatherData.name;
   const countryCode = weatherData.sys.country;
@@ -85,7 +88,7 @@ function displayWeatherData(weatherData) {
 
   locationText.textContent = `${cityName}, ${countryCode}`;
   weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-  weatherIcon.alt = condition;
+  weatherIcon.alt = `${condition} weather icon`;
   temperatureText.textContent = `${temperature}°C`;
   conditionText.textContent = condition;
   feelsLikeText.textContent = `${feelsLike}°C`;
@@ -93,26 +96,37 @@ function displayWeatherData(weatherData) {
   windText.textContent = `${windSpeedKm} km/h`;
 
   messageText.textContent = "";
-  loadingBox.classList.add("hidden");
+  finishSuccessfulSearch();
   weatherCard.classList.remove("hidden");
 }
 
-/* Shows loading state while API request is running */
 function showLoadingState() {
+  searchButton.disabled = true;
+  searchButton.textContent = "Searching...";
   messageText.textContent = "";
   weatherCard.classList.add("hidden");
   loadingBox.classList.remove("hidden");
 }
 
-/* Shows normal validation message */
 function showMessage(message) {
   messageText.textContent = message;
   loadingBox.classList.add("hidden");
+  resetSearchButton();
 }
 
-/* Shows API or network error message */
 function showErrorState(message) {
   messageText.textContent = message;
   loadingBox.classList.add("hidden");
   weatherCard.classList.add("hidden");
+  resetSearchButton();
+}
+
+function resetSearchButton() {
+  searchButton.disabled = false;
+  searchButton.textContent = "Search";
+}
+
+function finishSuccessfulSearch() {
+  loadingBox.classList.add("hidden");
+  resetSearchButton();
 }

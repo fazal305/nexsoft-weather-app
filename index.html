@@ -1,38 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="A responsive weather app built with HTML, CSS, JavaScript, Fetch API, and OpenWeatherMap.">
+
   <title>Nexsoft Weather App</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <main class="app-wrapper">
-    <!-- App Card -->
-    <section class="weather-app">
-      <h1>Weather App</h1>
-      <p class="app-subtitle">Search current weather by city name</p>
+    <section class="weather-app" aria-label="Weather app">
+      <header class="app-header">
+        <p class="brand-label">Fazal Labs · BrowserLab</p>
+        <h1>Nexsoft Weather App</h1>
+        <p class="app-subtitle">Search current weather by city name.</p>
+      </header>
 
-      <!-- Search Section -->
       <div class="search-box">
-        <input type="text" id="cityInput" placeholder="Enter city name" />
-        <button id="searchButton">Search</button>
+        <label class="sr-only" for="cityInput">City name</label>
+
+        <input type="text" id="cityInput" placeholder="Enter city name" autocomplete="off">
+
+        <button id="searchButton" type="button">Search</button>
       </div>
 
-      <!-- Message Section -->
-      <p id="messageText" class="message-text"></p>
+      <p id="messageText" class="message-text" aria-live="polite"></p>
 
-      <!-- Loading Section -->
-      <div id="loadingBox" class="loading-box hidden">
-        <div class="spinner"></div>
+      <div id="loadingBox" class="loading-box hidden" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
         <p>Fetching weather...</p>
       </div>
 
-      <!-- Weather Result Section -->
-      <section id="weatherCard" class="weather-card hidden">
+      <section id="weatherCard" class="weather-card hidden" aria-label="Weather result">
         <h2 id="locationText"></h2>
 
-        <img id="weatherIcon" class="weather-icon" src="" alt="Weather icon" />
+        <img id="weatherIcon" class="weather-icon" src="" alt="Weather icon">
 
         <p id="temperatureText" class="temperature-text"></p>
         <p id="conditionText" class="condition-text"></p>
@@ -59,4 +66,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>

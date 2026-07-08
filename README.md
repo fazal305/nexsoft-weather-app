@@ -1,124 +1,132 @@
 # Nexsoft Weather App
 
-A responsive Weather App built for the Nexsoft Solutions internship using HTML5, CSS3, and Vanilla JavaScript.
+A responsive weather application built with HTML5, CSS3, JavaScript, Fetch API, and OpenWeatherMap API for the Nexsoft Solutions internship.
 
-## Live Demo
+## Live Links
 
-https://fazal305.github.io/nexsoft-weather-app/
+- GitHub Repository: https://github.com/fazal305/nexsoft-weather-app
+- Live Demo: https://fazal305.github.io/nexsoft-weather-app/
 
-## GitHub Repository
+## Overview
 
-https://github.com/fazal305/nexsoft-weather-app
+Nexsoft Weather App lets users search for a city and view current weather information including temperature, feels-like temperature, condition, humidity, wind speed, and weather icon.
+
+The project focuses on API integration, loading states, error handling, responsive UI design, and clean JavaScript fetch logic.
 
 ## Features
 
-* Fetches weather data from OpenWeatherMap API
-* Displays city name and country
-* Displays current temperature in Celsius
-* Displays feels like temperature
-* Displays weather condition and icon
-* Displays humidity
-* Displays wind speed in km/h
-* City search functionality
-* Search button support
-* Enter key search support
-* Loading state
-* Error handling
-* Responsive dark theme interface
+- Search current weather by city name
+- Fetch weather data from OpenWeatherMap API
+- Display city and country
+- Display current temperature in Celsius
+- Display feels-like temperature
+- Display weather condition and icon
+- Display humidity percentage
+- Display wind speed in km/h
+- Loading state while fetching data
+- Error handling for invalid city and API issues
+- Enter key search support
+- Last searched city saved in localStorage
+- Responsive dark interface
+- GitHub Pages ready
 
-## Technologies Used
+## Tech Stack
 
-* HTML5
-* CSS3
-* Vanilla JavaScript
-* Fetch API
-* OpenWeatherMap API
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- Fetch API
+- OpenWeatherMap API
+- localStorage
+- GitHub Pages
+  Folder Structure
+  nexsoft-weather-app/
+  index.html
+  style.css
+  script.js
+  README.md
+  LICENSE
+  .gitignore
+  Getting Started
 
-## Project Requirements Covered
+Clone the repository:
 
-### Requirement 1
+git clone https://github.com/fazal305/nexsoft-weather-app.git
 
-Fetch weather data from a public API
+Open the folder:
 
-### Requirement 2
+cd nexsoft-weather-app
 
-Display temperature and weather condition
+Open index.html in your browser or use VS Code Live Server.
 
-### Requirement 3
+API Used
 
-Add city search functionality
+This project uses the OpenWeatherMap Current Weather Data API.
 
-### Requirement 4
-
-Handle loading and error states
-
-### Requirement 5
-
-Design a responsive weather interface
-
-## API Used
-
-OpenWeatherMap Current Weather Data API
-
-```text
 https://api.openweathermap.org/data/2.5/weather
-```
+API Key Note
 
-## API Key Setup
+This project currently uses a client-side API key inside script.js for internship demo purposes.
 
-Open `script.js` and replace:
+For a production-level project, the API key should be handled through a backend or protected environment setup because frontend API keys are visible in browser source code.
 
-```javascript
-const apiKey = "PASTE_YOUR_API_KEY_HERE";
-```
+If you use your own key, replace this line in script.js:
 
-with:
+const apiKey = "YOUR_OPENWEATHERMAP_API_KEY";
+Architecture Notes
 
-```javascript
-const apiKey = "YOUR_API_KEY_HERE";
-```
+The project is split into three main files:
 
-You can obtain a free API key from:
+index.html contains the app structure and weather result layout.
+style.css handles the responsive dark UI, card layout, spinner, and focus states.
+script.js handles city validation, API requests, loading state, error state, weather rendering, and saving the last searched city.
+Accessibility
 
-https://openweathermap.org/api
+Accessibility support includes:
 
-## How To Run
+Semantic main and section structure
+Search input label for screen readers
+aria-live messages for validation and loading updates
+Descriptive weather icon alt text
+Button type="button"
+Visible focus states
+Responsive mobile layout
+Performance
 
-1. Download or clone the repository
-2. Open the project folder in VS Code
-3. Add your OpenWeatherMap API key to `script.js`
-4. Open `index.html` using Live Server
-5. Search for any city to view current weather information
+Performance notes:
 
-## Folder Structure
+Static frontend app
+Lightweight JavaScript
+No frameworks
+No image assets except API weather icon
+Fast GitHub Pages deployment
+Uses localStorage only for last searched city
+Testing Checklist
 
-```text
-nexsoft-weather-app/
-│
-├── index.html
-├── style.css
-├── script.js
-├── README.md
-├── .gitignore
-└── LICENSE
+Before final submission:
 
-```text
-screenshots/
-├── desktop-view.png
-├── mobile-view.png
-└── weather-results.png
-```
-
-## Author
-
-Fazal Abbas
-
-GitHub:
-https://github.com/fazal305
-
-LinkedIn:
-https://www.linkedin.com/in/fazal-abbas-4653dg86
-
-## License
-
-This project is licensed under the MIT License.
+Search for a valid city
+Search using the Enter key
+Search with an empty input
+Search for an invalid city
+Test API key error handling
+Test loading state
+Test mobile responsiveness
+Refresh page and confirm last city remains in input
+Run JavaScript syntax check:
+node --check script.js
+Lessons Learned
+Fetching public API data with JavaScript
+Handling API loading and error states
+Updating UI dynamically from JSON data
+Using OpenWeatherMap weather icons
+Improving accessibility in a small API project
+Preparing an internship project for portfolio presentation
+Future Improvements
+Add geolocation-based weather
+Add 5-day forecast
+Add unit toggle between Celsius and Fahrenheit
+Add recent search history
+Add weather-based background changes
+Move API key handling to a backend proxy
+Add PWA offline shell
