@@ -32,7 +32,18 @@
         <p class="brand-label">Fazal Labs · BrowserLab</p>
         <h1>Nexsoft Weather App</h1>
         <p class="app-subtitle">Search current weather by city name.</p>
+        <button id="apiKeyButton" type="button" class="api-key-link">Set OpenWeatherMap API key</button>
       </header>
+
+      <div id="apiKeyBox" class="api-key-box hidden">
+        <label class="sr-only" for="apiKeyInput">OpenWeatherMap API key</label>
+        <input type="text" id="apiKeyInput" placeholder="Paste your API key" autocomplete="off">
+        <button id="apiKeySave" type="button">Save</button>
+        <p class="api-key-hint">
+          Free at <a href="https://home.openweathermap.org/users/sign_up" target="_blank" rel="noopener">openweathermap.org</a>.
+          Stored only in your browser (localStorage) — never sent anywhere but OpenWeatherMap.
+        </p>
+      </div>
 
       <div class="search-box">
         <label class="sr-only" for="cityInput">City name</label>

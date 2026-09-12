@@ -1,5 +1,3 @@
-const apiKey = "d6e134f57ee968a474bdca589a45ccbd";
-
 const cityInput = document.querySelector("#cityInput");
 const searchButton = document.querySelector("#searchButton");
 const messageText = document.querySelector("#messageText");
@@ -14,9 +12,47 @@ const feelsLikeText = document.querySelector("#feelsLikeText");
 const humidityText = document.querySelector("#humidityText");
 const windText = document.querySelector("#windText");
 
+const apiKeyButton = document.querySelector("#apiKeyButton");
+const apiKeyBox = document.querySelector("#apiKeyBox");
+const apiKeyInput = document.querySelector("#apiKeyInput");
+const apiKeySave = document.querySelector("#apiKeySave");
+
 const lastCityKey = "nexsoft-weather-last-city";
+const apiKeyStorageKey = "nexsoft-weather-api-key";
 
 searchButton.addEventListener("click", handleWeatherSearch);
+
+apiKeyButton.addEventListener("click", function () {
+  apiKeyBox.classList.toggle("hidden");
+  if (!apiKeyBox.classList.contains("hidden")) {
+    apiKeyInput.value = getApiKey() || "";
+    apiKeyInput.focus();
+  }
+});
+
+apiKeySave.addEventListener("click", function () {
+  const key = apiKeyInput.value.trim();
+
+  if (key === "") {
+    showMessage("Enter a key first, or get a free one from OpenWeatherMap.");
+    return;
+  }
+
+  localStorage.setItem(apiKeyStorageKey, key);
+  apiKeyBox.classList.add("hidden");
+  updateApiKeyButtonLabel();
+  showMessage("API key saved. Try a search.");
+});
+
+function getApiKey() {
+  return localStorage.getItem(apiKeyStorageKey);
+}
+
+function updateApiKeyButtonLabel() {
+  apiKeyButton.textContent = getApiKey() ? "Change API key" : "Set OpenWeatherMap API key";
+}
+
+updateApiKeyButtonLabel();
 
 cityInput.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
@@ -46,6 +82,15 @@ function handleWeatherSearch() {
 }
 
 async function fetchWeatherData(cityName) {
+  const apiKey = getApiKey();
+
+  if (!apiKey) {
+    showMessage("Add your free OpenWeatherMap API key above to search.");
+    apiKeyBox.classList.remove("hidden");
+    apiKeyInput.focus();
+    return;
+  }
+
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(cityName)}&appid=${apiKey}&units=metric`;
 
   showLoadingState();

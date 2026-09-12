@@ -66,13 +66,13 @@ This project uses the OpenWeatherMap Current Weather Data API.
 https://api.openweathermap.org/data/2.5/weather
 API Key Note
 
-This project currently uses a client-side API key inside script.js for internship demo purposes.
+This is a static, backend-free app, so there's no server to hide an API key behind either
+way — any key shipped in script.js would be visible in the page source regardless. Instead
+of committing a key to the repo, the app asks each visitor for their own free OpenWeatherMap
+key via "Set OpenWeatherMap API key" in the header, and stores it in that browser's
+localStorage only (never sent anywhere but OpenWeatherMap, never committed to source).
 
-For a production-level project, the API key should be handled through a backend or protected environment setup because frontend API keys are visible in browser source code.
-
-If you use your own key, replace this line in script.js:
-
-const apiKey = "YOUR_OPENWEATHERMAP_API_KEY";
+Get a free key at https://home.openweathermap.org/users/sign_up.
 Architecture Notes
 
 The project is split into three main files:
